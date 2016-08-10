@@ -1,3 +1,1 @@
-declare module "recompose" {
-    
-}
+export function withContext(): void;

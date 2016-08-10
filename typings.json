@@ -8,5 +8,8 @@
   },
   "devDependencies": {
     "blue-tape": "registry:npm/blue-tape#0.2.0+20160723033700"
+  },
+  "dependencies": {
+    "react": "registry:npm/react#15.0.1+20160601175240"
   }
 }
