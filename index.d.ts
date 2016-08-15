@@ -1,7 +1,6 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
+/// <reference path="typings/modules/react/index.d.ts" />
 
-declare module "react-redux" {
+declare module "recompose" {
     import { ComponentClass, StatelessComponent, ValidationMap } from 'react';
 
     export interface HigherOrderComponent {
