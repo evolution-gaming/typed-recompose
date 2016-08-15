@@ -1,6 +1,6 @@
-import { ComponentClass, StatelessComponent, ValidationMap } from 'react';
-
-declare module "recompose" {
+declare module "react-redux" {
+    import { ComponentClass, StatelessComponent, ValidationMap } from 'react';
+    
     export interface HigherOrderComponent {
         // stolen from react-redux
         // export interface InferableComponentDecorator {
