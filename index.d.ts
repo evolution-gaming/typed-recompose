@@ -1,5 +1,3 @@
-/// <reference path="typings/modules/react/index.d.ts" />
-
 declare module "recompose" {
     import { ComponentClass, StatelessComponent, ValidationMap } from 'react';
 
