@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "jsx": "react"
   },
   "files": [
-    "test.ts",
+    "test.tsx",
     "../typings/index.d.ts",
     "../out/index.d.ts"
   ]

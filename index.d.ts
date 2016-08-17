@@ -1,4 +1,4 @@
-declare module "recompose" {
+declare module 'recompose' {
     import { ComponentClass, StatelessComponent, ValidationMap } from 'react';
 
     interface ComponentDecorator<TOriginalProps, TOwnProps> {

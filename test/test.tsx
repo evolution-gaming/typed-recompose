@@ -1,0 +1,144 @@
+import React = require('react');
+import test = require('blue-tape');
+import recompose = require('recompose');
+
+// GIVEN
+interface StatelessCmpProps {
+    bar: string;
+}
+
+const StatelessCmp: React.StatelessComponent<StatelessCmpProps> = (props: StatelessCmpProps): JSX.Element => {
+    return <div>{ props.bar }</div>;
+};
+
+interface CmpProps {
+    nProp: number;
+    sProp: string;
+}
+interface CmpState {
+    s1: number;
+    s2: string;
+}
+class Cmp extends React.Component<CmpProps, CmpState> {
+    public render(): JSX.Element {
+        return <div>{ this.props.nProp }</div>;
+    }
+}
+
+test('withContext', t => {
+    const { withContext } = recompose;
+    t.equal(typeof withContext, 'function', 'withContext is a function');
+
+    const withContextFactory = withContext(
+        { fooFn: React.PropTypes.object },
+        () => ({ fooFn: () => { } })
+    );
+
+    const StatelessCmpContainsContext = withContextFactory(StatelessCmp);
+    /**
+     * <StatelessCmpContainsContext />
+     * TS2324: Property 'bar' is missing in type ...
+     */
+    <StatelessCmpContainsContext bar='' />;
+
+    const CmpContainsContext = withContextFactory(Cmp);
+    /**
+     * <CmpContainsContext />
+     * Property 'nProp' is missing in type ...
+     * Property 'sProp' is missing in type ...
+     */
+    <CmpContainsContext nProp={0} sProp='' />;
+
+    return t.end();
+});
+
+test('mapProps', t => {
+    const { mapProps } = recompose;
+    t.equal(typeof mapProps, 'function', 'mapProps is a function');
+
+    interface CmpPropsMapped {
+        nMappedProp: number;
+        sMappedProp: string;
+    }
+    const propMapper = mapProps((props: CmpProps) => ({
+        nMappedProp: props.nProp + 1,
+        sMappedProp: props.sProp + '1'
+    } as CmpPropsMapped));
+
+    const CmpWithMappedProps = propMapper(Cmp);
+    /**
+     * <CmpWithMappedProps />
+     * {nMappedProp|sMappedProp} is missing in type ...
+     */
+    <CmpWithMappedProps sMappedProp='' nMappedProp={0} />;
+
+    return t.end();
+});
+
+test('withProps', t => {
+    t.equal(typeof recompose.withProps, 'function', 'withProps is a function');
+
+    const withPropsFactory = recompose.withProps((props: CmpProps) => ({
+        sAdditionalProp: 'foo'
+    }));
+
+    const CmpWithAdditionalProp = withPropsFactory(Cmp);
+    // <CmpWithAdditionalProp sProp="" nProp={0} />
+    // TS2324: Property 'sAdditionalProp' is missing in type ...
+    <CmpWithAdditionalProp sProp='' nProp={0} sAdditionalProp='' />;
+    return t.end();
+});
+
+test('setPropTypes', t => {
+    t.equal(typeof recompose.withProps, 'function', 'withProps is a function');
+    interface TheOnlyProperty {
+        theOnlyProperty: string;
+    }
+    const setPropTypesFactory = recompose.setPropTypes({
+        theOnlyProperty: React.PropTypes.string
+    } as React.ValidationMap<TheOnlyProperty>);
+
+    const CmpWithTheOnlyProperty = setPropTypesFactory(Cmp);
+    /**
+     * <CmpWithTheOnlyProperty />
+     * Property 'theOnlyProperty' is missing in type
+     */
+    <CmpWithTheOnlyProperty theOnlyProperty='' />;
+
+    return t.end();
+});
+
+test('getContext', t => {
+    t.equal(typeof recompose.getContext, 'function', 'getContext is a function');
+
+    interface PropsFromContext {
+        propFromContext: string;
+    }
+    const getContextFactory = recompose.getContext({
+        propFromContext: React.PropTypes.string,
+    });
+
+    const CmpWithContext = getContextFactory(Cmp) as React.ComponentClass<CmpProps & PropsFromContext>;
+
+    //  <CmpWithContext />
+    //  Property 'nProp' is missing in type ...
+    //  Property 'sProp' is missing in type ...
+    //  Property 'propFromContext' is missing in type ...
+
+    <CmpWithContext sProp='' nProp={0} propFromContext='' />;
+
+    return t.end();
+});
+
+test('componentFromProp', t => {
+    const Div = <div />;
+    interface ButtonProps {
+        component: string | JSX.Element;
+    }
+    t.equal(typeof recompose.componentFromProp, 'function', 'componentFromProp is a function');
+    const Button = recompose.componentFromProp<ButtonProps>('component');
+    <Button component='a' />;
+    <Button component={Div} />;
+
+    return t.end();
+});
