@@ -3,6 +3,8 @@
 
 The type definition for [`recompose`](https://github.com/acdlite/recompose.git)
 
+Let's [discuss](https://github.com/acdlite/recompose/issues/231)
+
 ## LICENSE
 
 MIT

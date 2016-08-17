@@ -1,6 +1,6 @@
 {
   "name": "typed-recompose",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "scripts": {
     "build": "echo building... && typings bundle -o out/index.d.ts --global",
     "lint": "echo linting... && tslint \"**/*.ts\" -e \"source/**\" -e \"source-test/**\" -e \"out/**\" -e \"node_modules/**\" -e \"typings/**\"",
