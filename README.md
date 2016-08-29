@@ -1,4 +1,4 @@
-# Typed Recompose  [![Build Status](https://travis-ci.org/r00ger/typed-recompose.svg?branch=master)](https://travis-ci.org/r00ger/typed-recompose)
+# Typed Recompose
 
 
 The type definition for [`recompose`](https://github.com/acdlite/recompose.git)
@@ -11,28 +11,15 @@ MIT
 
 ## Contributing
 
-```sh
-# Fork this repo, then
-npm install
+You are welcome!
 
-npm run watch
+Fisrt, take a look at `index.d.ts` file. I've used `connect`'s definition 
+from `react-redux` library for HOC.
 
-# add tests, make changes, pass tests ... then [ctrl+c]
-npm run publish
-```
-
-## Updating
-
-Update `typings.json/version` to match the source version you are typing against.
-e.g. if you are creating typings for `chai@3.5.0`, then:
-
-```js
-// typings.json
-{
-  "version": "3.5.0"
-  // ...
-}
-```
+Then at `test/test.tsx` you can see usage examples. Basically testing of 
+annotations means «write your typical code samples and make sure that code compiles by `tsc`».
+So if you see that provided annotation won't work in particular (still typical)
+case, please let me know.
 
 ----
 
