@@ -35,18 +35,14 @@ test('withContext', t => {
     );
 
     const StatelessCmpContainsContext = withContextFactory(StatelessCmp);
-    /**
-     * <StatelessCmpContainsContext />
-     * TS2324: Property 'bar' is missing in type ...
-     */
+    // <StatelessCmpContainsContext />
+    // TS2324: Property 'bar' is missing in type ...
     <StatelessCmpContainsContext bar='' />;
 
     const CmpContainsContext = withContextFactory(Cmp);
-    /**
-     * <CmpContainsContext />
-     * Property 'nProp' is missing in type ...
-     * Property 'sProp' is missing in type ...
-     */
+    // <CmpContainsContext />
+    // Property 'nProp' is missing in type ...
+    // Property 'sProp' is missing in type ...
     <CmpContainsContext nProp={0} sProp='' />;
 
     return t.end();
@@ -66,10 +62,8 @@ test('mapProps', t => {
     } as CmpPropsMapped));
 
     const CmpWithMappedProps = propMapper(Cmp);
-    /**
-     * <CmpWithMappedProps />
-     * {nMappedProp|sMappedProp} is missing in type ...
-     */
+    // <CmpWithMappedProps />
+    // {nMappedProp|sMappedProp} is missing in type ...
     <CmpWithMappedProps sMappedProp='' nMappedProp={0} />;
 
     return t.end();
@@ -94,16 +88,15 @@ test('pure', t => {
 
     const PureStatelessCmp = recompose.pure(StatelessCmp);
     const PureCmp = recompose.pure(Cmp);
-    /**
-     * <PureStatelessCmp />;
-     * TS2324: Property 'bar' is missing in type ...
-     *
-     * <PureCmp />;
-     * Property 'nProp' is missing in type ...
-     * Property 'sProp' is missing in type ...
-     */
-    <PureStatelessCmp bar='Hi there!' />;
+    // <PureStatelessCmp />;
+    // TS2324: Property 'bar' is missing in type ...
     <PureCmp sProp='Hello again!' nProp={0} />;
+
+    // <PureCmp />;
+    // Property 'nProp' is missing in type ...
+    // Property 'sProp' is missing in type ...
+    <PureStatelessCmp bar='Hi there!' />;
+
     return t.end();
 });
 
@@ -118,10 +111,8 @@ test('setPropTypes', t => {
     } as React.ValidationMap<TheOnlyProperty>);
 
     const CmpWithTheOnlyProperty = setPropTypesFactory(Cmp);
-    /**
-     * <CmpWithTheOnlyProperty />
-     * Property 'theOnlyProperty' is missing in type
-     */
+    // <CmpWithTheOnlyProperty />
+    // Property 'theOnlyProperty' is missing in type
     <CmpWithTheOnlyProperty theOnlyProperty='' />;
 
     return t.end();
@@ -160,4 +151,35 @@ test('componentFromProp', t => {
     <Button component={Div} />;
 
     return t.end();
+});
+
+test('withState', t => {
+    t.equal(typeof recompose.withState, 'function', 'withState is a function');
+    interface ExpandedProps {
+        isExpanded?: boolean;
+        setExpanded?: (expanded: boolean) => void;
+        // properties will be provided by recompose and thus have to be optional
+    }
+
+    function expandableFactory<TProps>(
+        component: React.ComponentClass<TProps> | React.StatelessComponent<TProps>
+    ) {
+        return recompose.withState<TProps, ExpandedProps & TProps>(
+            'isExpanded',
+            'setExpanded',
+            () => false
+        )(component);
+    }
+
+    const ExpandableCmp = expandableFactory(Cmp);
+    // <ExpandableCmp />;
+    // Property 'nProp' is missing in type ...
+    // Property 'sProp' is missing in type ...
+    <ExpandableCmp sProp='Ola!' nProp={0} />;
+
+    const ExpandableSFC = expandableFactory(StatelessCmp);
+    // <ExpandableSFC />
+    // Property 'bar' is missing in type ...
+    <ExpandableSFC bar='Ola!' />
+    t.end();
 });
