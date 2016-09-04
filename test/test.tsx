@@ -89,6 +89,20 @@ test('withProps', t => {
     return t.end();
 });
 
+test('pure', t => {
+    t.equal(typeof recompose.pure, 'function', 'pure is a function');
+
+    const PureStatelessCmp = recompose.pure(StatelessCmp);
+    /**
+     * <PureStatelessCmp />;
+     * TS2324: Property 'bar' is missing in type ...
+     */
+    <PureStatelessCmp bar='Hi there!'></PureStatelessCmp>;
+
+    return t.end();
+});
+
+
 test('setPropTypes', t => {
     t.equal(typeof recompose.withProps, 'function', 'withProps is a function');
     interface TheOnlyProperty {

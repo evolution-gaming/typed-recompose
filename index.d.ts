@@ -2,7 +2,7 @@ declare module 'recompose' {
     import { ComponentClass, StatelessComponent, ValidationMap } from 'react';
 
     interface ComponentDecorator<TOriginalProps, TOwnProps> {
-        (component: ComponentClass<TOriginalProps>|StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps>;
+        (component: ComponentClass<TOriginalProps> | StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps>;
     }
 
     /**
@@ -11,7 +11,7 @@ declare module 'recompose' {
      * Can't use the above decorator because it would default the type to {}
      */
     export interface InferableComponentDecorator {
-        <P, TComponentConstruct extends (ComponentClass<P>|StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct;
+        <P, TComponentConstruct extends (ComponentClass<P> | StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct;
     }
 
     export function withContext<ContextProps, ComponentOwnProps>(
@@ -27,8 +27,9 @@ declare module 'recompose' {
         createProps: (props: TOriginalProps) => TOriginalProps & TOwnProps | TOwnProps
     ): ComponentDecorator<TOriginalProps, TOriginalProps & TOwnProps>;
 
-    export function pure(): InferableComponentDecorator;
-
+    // export function <T>pure(Cmp<T>): InferableComponentDecorator;
+    export function pure<P, TComponentConstruct extends (ComponentClass<P> | StatelessComponent<P>)>
+        (component: TComponentConstruct): TComponentConstruct;
     export function onlyUpdateForKeys(propKeys: Array<string>): InferableComponentDecorator;
     export function onlyUpdateForPropTypes(): InferableComponentDecorator;
 
@@ -51,7 +52,7 @@ declare module 'recompose' {
         initialState: (props: Object) => any | any
     ): ComponentDecorator<TOriginalProps, TOwnProps>;
 
-    type HandlerCreators = {[handlerName: string]: (props: Object) => Function}
+    type HandlerCreators = { [handlerName: string]: (props: Object) => Function }
     export function withHandlers<TOriginalProps, TNextProps>(
         handlerCreators: HandlerCreators
     ): ComponentDecorator<TOriginalProps, TNextProps>;

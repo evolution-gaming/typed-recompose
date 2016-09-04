@@ -5,6 +5,21 @@ The type definition for [`recompose`](https://github.com/acdlite/recompose.git)
 
 Let's [discuss](https://github.com/acdlite/recompose/issues/231)
 
+## Annotated methods
+* withContext
+* mapProps
+* withProps
+* pure
+* onlyUpdateForKeys
+* onlyUpdateForPropTypes
+* setPropTypes
+* getContext
+* componentFromProp
+* defaultProps
+* withState
+* lifecycle
+* compose
+
 ## LICENSE
 
 MIT
