@@ -93,12 +93,17 @@ test('pure', t => {
     t.equal(typeof recompose.pure, 'function', 'pure is a function');
 
     const PureStatelessCmp = recompose.pure(StatelessCmp);
+    const PureCmp = recompose.pure(Cmp);
     /**
      * <PureStatelessCmp />;
      * TS2324: Property 'bar' is missing in type ...
+     *
+     * <PureCmp />;
+     * Property 'nProp' is missing in type ...
+     * Property 'sProp' is missing in type ...
      */
-    <PureStatelessCmp bar='Hi there!'></PureStatelessCmp>;
-
+    <PureStatelessCmp bar='Hi there!' />;
+    <PureCmp sProp="Hello again!" nProp={0} />;
     return t.end();
 });
 
