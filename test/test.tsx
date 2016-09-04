@@ -103,7 +103,7 @@ test('pure', t => {
      * Property 'sProp' is missing in type ...
      */
     <PureStatelessCmp bar='Hi there!' />;
-    <PureCmp sProp="Hello again!" nProp={0} />;
+    <PureCmp sProp='Hello again!' nProp={0} />;
     return t.end();
 });
 
