@@ -4,10 +4,10 @@
   "homepage": "https://github.com/acdlite/recompose",
   "version": "0.20.2",
   "globalDevDependencies": {
-    "node": "registry:env/node#6.0.0+20160723033700"
+    "node": "registry:env/node#6.0.0+20160723033700",
+    "react": "registry:dt/react#0.14.0+20160829191040"
   },
   "devDependencies": {
-    "blue-tape": "registry:npm/blue-tape#0.2.0+20160723033700",
-    "react": "registry:npm/react#15.0.1+20160601175240"
+    "blue-tape": "registry:npm/blue-tape#0.2.0+20160723033700"
   }
 }
