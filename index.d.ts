@@ -19,9 +19,9 @@ declare module 'recompose' {
         getChildContext: (props: ComponentOwnProps) => any
     ): InferableComponentDecorator;
 
-    export function mapProps<TOriginalProps, TOwnProps>(
-        propsMapper: (props: TOriginalProps) => TOwnProps
-    ): ComponentDecorator<TOriginalProps, TOwnProps>;
+    export function mapProps<TNeededProps, TMappedProps, TChildProps>(
+        propsMapper: (props: TNeededProps) => TMappedProps
+    ): ComponentDecorator<TChildProps, TNeededProps>;
 
     export function withProps<TOriginalProps, TOwnProps>(
         createProps: (props: TOriginalProps) => TOriginalProps & TOwnProps | TOwnProps

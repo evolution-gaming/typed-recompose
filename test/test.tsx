@@ -1,3 +1,6 @@
+/// <reference path='./../typings/index.d.ts' />
+/// <reference path='./../index.d.ts' />
+
 import React = require('react');
 import test = require('blue-tape');
 import recompose = require('recompose');
@@ -52,19 +55,29 @@ test('mapProps', t => {
     const { mapProps } = recompose;
     t.equal(typeof mapProps, 'function', 'mapProps is a function');
 
-    interface CmpPropsMapped {
-        nMappedProp: number;
-        sMappedProp: string;
+    interface NeededProps {
+        firstName: string;
+        lastName: string;
     }
-    const propMapper = mapProps((props: CmpProps) => ({
-        nMappedProp: props.nProp + 1,
-        sMappedProp: props.sProp + '1'
-    } as CmpPropsMapped));
 
-    const CmpWithMappedProps = propMapper(Cmp);
-    // <CmpWithMappedProps />
-    // {nMappedProp|sMappedProp} is missing in type ...
-    <CmpWithMappedProps sMappedProp='' nMappedProp={0} />;
+    interface MappedProps {
+        fullName: string;
+    }
+
+    class FullName extends React.Component<MappedProps, void> {
+        render() {
+            return <div>{ this.props.fullName }</div>;
+        }
+    }
+
+    const propMapper = mapProps((props: NeededProps) => ({
+        fullName: props.firstName + ' ' + props.lastName
+    }));
+
+    const FirstAndLastName = propMapper(FullName);
+    // <FirstAndLastName />
+    // {firstName|lastName} is missing in type ...
+    <FirstAndLastName firstName='Ian' lastName='Ker-Seymer' />;
 
     return t.end();
 });
