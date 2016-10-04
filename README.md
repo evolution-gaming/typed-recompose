@@ -5,7 +5,7 @@ The type definition for [`recompose`](https://github.com/acdlite/recompose.git)
 
 Let's [discuss](https://github.com/acdlite/recompose/issues/231)
 
-## 0.20.0 List of the methods `//TODO implement those`
+## 0.20.2 List of the methods `//TODO implement those`
 * Higher-order components
   + ~~`mapProps()`~~
   + ~~`withProps()`~~
@@ -60,7 +60,8 @@ MIT
 You are welcome!
 
 Fisrt, take a look at `index.d.ts` file. I've used `connect`'s definition 
-from `react-redux` library for HOC (to be honest I still don't get why it called so).
+from `react-redux` library for HOC
+(to be honest I still don't get [why it's called so](http://stackoverflow.com/questions/39321027/why-higher-order-component-hoc-is-called-so/39321076)).
 
 Then at `test/test.tsx` you can see usage examples. Basically testing of 
 annotations means «write your typical code samples and make sure that code compiles by `tsc`».
