@@ -71,4 +71,12 @@ declare module 'recompose' {
     export function compose<TOriginalProps, TNextProps>(
         ...functions: Array<Function>
     ): ComponentDecorator<TOriginalProps, TNextProps>;
+
+    /**
+     * Higher-order component version of shouldComponentUpdate(). The test
+     * function accepts both the current props and the next props.
+     */
+    export function shouldUpdate<TProps>(
+        test: (props: TProps, nextProps: TProps) => boolean
+    ): ComponentDecorator<TProps, TProps>;
 }
