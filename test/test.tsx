@@ -1,3 +1,5 @@
+/// <reference path='./../index.d.ts' />
+
 import React = require('react');
 import test = require('blue-tape');
 import recompose = require('recompose');
@@ -151,6 +153,27 @@ test('componentFromProp', t => {
     <Button component={Div} />;
 
     return t.end();
+});
+
+test('lifecyle', t => {
+    t.equal(typeof recompose.lifecycle, 'function', 'lifecycle is a function');
+
+    interface Props {
+      test: boolean;
+    }
+
+    const TestCmp = (props: Props) => <div>Hello world</div>;
+
+    const lifecycleSpec = {
+      commponentWillReceiveProps: (nextProps: Props, nextState: void) => console.log('componentWillReceiveProps'),
+      shouldComponentUpdate: (nextProps: Props, nextState: void) => true
+    };
+
+    const CmpWithLifecyle = recompose.lifecycle<Props, void>(lifecycleSpec)(TestCmp);
+
+    <CmpWithLifecyle test />;
+
+    t.end();
 });
 
 test('withState', t => {

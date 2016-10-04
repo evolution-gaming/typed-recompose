@@ -1,5 +1,5 @@
 declare module 'recompose' {
-    import { ComponentClass, StatelessComponent, ValidationMap } from 'react';
+    import { ComponentLifecycle, ComponentClass, StatelessComponent, ValidationMap } from 'react';
 
     interface ComponentDecorator<TOriginalProps, TOwnProps> {
         (component: ComponentClass<TOriginalProps> | StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps>;
@@ -66,7 +66,7 @@ declare module 'recompose' {
         componentDidUpdate?: Function;
         componentWillUnmount?: Function;
     }
-    export function lifecycle(spec: ReactLifeCycleMethods): InferableComponentDecorator;
+    export function lifecycle<P, S>(spec: ComponentLifecycle<P, S>): InferableComponentDecorator;
 
     export function compose<TOriginalProps, TNextProps>(
         ...functions: Array<Function>
