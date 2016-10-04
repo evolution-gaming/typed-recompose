@@ -20,7 +20,7 @@ Let's [discuss](https://github.com/acdlite/recompose/issues/231)
   + `branch()`
   + `renderComponent()`
   + `renderNothing()`
-  + `shouldUpdate()`
+  + ~~`shouldUpdate()`~~
   + ~~`pure()`~~
   + ~~`onlyUpdateForKeys()`~~
   + ~~`onlyUpdateForPropTypes()`~~
