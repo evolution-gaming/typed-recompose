@@ -180,6 +180,22 @@ test('withState', t => {
     const ExpandableSFC = expandableFactory(StatelessCmp);
     // <ExpandableSFC />
     // Property 'bar' is missing in type ...
-    <ExpandableSFC bar='Ola!' />
+    <ExpandableSFC bar='Ola!' />;
+    t.end();
+});
+
+test('shouldUpdate', t => {
+    t.equal(typeof recompose.withState, 'function', 'shouldUpdate is a function');
+
+    interface Props {
+      stale: boolean;
+    }
+
+    const StaleOrFresh = (props: Props) => <div>{ props.stale ? 'Stale!' : 'Fresh!' }</div>;
+
+    const UpdateWhenStale = recompose.shouldUpdate((props: Props) => props.stale)(StaleOrFresh);
+
+    <UpdateWhenStale stale />;
+
     t.end();
 });
