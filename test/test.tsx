@@ -1,5 +1,3 @@
-/// <reference path='./../index.d.ts' />
-
 import React = require('react');
 import test = require('blue-tape');
 import recompose = require('recompose');

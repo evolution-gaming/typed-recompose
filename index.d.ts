@@ -57,15 +57,6 @@ declare module 'recompose' {
         handlerCreators: HandlerCreators
     ): ComponentDecorator<TOriginalProps, TNextProps>;
 
-    interface ReactLifeCycleMethods {
-        componentWillMount?: Function;
-        componentDidMount?: Function;
-        componentWillReceiveProps?: Function;
-        shouldComponentUpdate?: Function;
-        componentWillUpdate?: Function;
-        componentDidUpdate?: Function;
-        componentWillUnmount?: Function;
-    }
     export function lifecycle<P, S>(spec: ComponentLifecycle<P, S>): InferableComponentDecorator;
 
     export function compose<TOriginalProps, TNextProps>(
