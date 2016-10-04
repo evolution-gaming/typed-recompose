@@ -1,5 +1,6 @@
 # Typed Recompose
 
+[![Build Status](https://travis-ci.org/evolution-gaming/typed-recompose.svg?branch=master)](https://travis-ci.org/evolution-gaming/typed-recompose)
 
 The type definition for [`recompose`](https://github.com/acdlite/recompose.git)
 
