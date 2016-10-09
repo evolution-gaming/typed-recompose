@@ -13,8 +13,8 @@ Let's [discuss](https://github.com/acdlite/recompose/issues/231)
   + `withPropsOnChange()`
   + `withHandlers()`
   + ~~`defaultProps()`~~
-  + `renameProp()`
-  + `renameProps()`
+  + ~~`renameProp()`~~
+  + ~~`renameProps()`~~
   + `flattenProp()`
   + ~~`withState()`~~
   + `withReducer()`

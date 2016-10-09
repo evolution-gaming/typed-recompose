@@ -3,7 +3,8 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "out",
-    "jsx": "react"
+    "jsx": "react",
+    "strictNullChecks": true
   },
   "exclude": [
     "node_modules",

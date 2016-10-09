@@ -2,7 +2,8 @@ declare module 'recompose' {
     import { ComponentLifecycle, ComponentClass, StatelessComponent, ValidationMap } from 'react';
 
     interface ComponentDecorator<TOriginalProps, TOwnProps> {
-        (component: ComponentClass<TOriginalProps> | StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps>;
+        (component: ComponentClass<TOriginalProps> | StatelessComponent<TOriginalProps>)
+            : ComponentClass<TOwnProps>;
     }
 
     /**
@@ -11,7 +12,8 @@ declare module 'recompose' {
      * Can't use the above decorator because it would default the type to {}
      */
     export interface InferableComponentDecorator {
-        <P, TComponentConstruct extends (ComponentClass<P> | StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct;
+        <P, TComponentConstruct extends (ComponentClass<P> | StatelessComponent<P>)>
+        (component: TComponentConstruct): TComponentConstruct;
     }
 
     export function withContext<ContextProps, ComponentOwnProps>(
@@ -27,10 +29,11 @@ declare module 'recompose' {
         createProps: (props: TOriginalProps) => TOriginalProps & TOwnProps | TOwnProps
     ): ComponentDecorator<TOriginalProps, TOriginalProps & TOwnProps>;
 
-    // export function <T>pure(Cmp<T>): InferableComponentDecorator;
     export function pure<P, TComponentConstruct extends (ComponentClass<P> | StatelessComponent<P>)>
         (component: TComponentConstruct): TComponentConstruct;
+
     export function onlyUpdateForKeys(propKeys: Array<string>): InferableComponentDecorator;
+
     export function onlyUpdateForPropTypes(): InferableComponentDecorator;
 
     export function setPropTypes<TOwnProps>(
@@ -70,4 +73,13 @@ declare module 'recompose' {
     export function shouldUpdate<TProps>(
         test: (props: TProps, nextProps: TProps) => boolean
     ): ComponentDecorator<TProps, TProps>;
+
+    export function renameProp<TOldProps, TNewProps>(
+        oldName: string,
+        newName: string
+    ): ComponentDecorator<TOldProps, TNewProps>;
+
+    export function renameProps<TOldProps, TNewProps>(
+        nameMap: { [key: string]: string }
+    ): ComponentDecorator<TOldProps, TNewProps>;
 }

@@ -8,7 +8,7 @@ interface StatelessCmpProps {
 }
 
 const StatelessCmp: React.StatelessComponent<StatelessCmpProps> = (props: StatelessCmpProps): JSX.Element => {
-    return <div>{ props.bar }</div>;
+    return <div>{props.bar}</div>;
 };
 
 interface CmpProps {
@@ -21,7 +21,7 @@ interface CmpState {
 }
 class Cmp extends React.Component<CmpProps, CmpState> {
     public render(): JSX.Element {
-        return <div>{ this.props.nProp }</div>;
+        return <div>{this.props.nProp}</div>;
     }
 }
 
@@ -63,7 +63,7 @@ test('mapProps', t => {
 
     class FullName extends React.Component<MappedProps, void> {
         render() {
-            return <div>{ this.props.fullName }</div>;
+            return <div>{this.props.fullName}</div>;
         }
     }
 
@@ -167,14 +167,15 @@ test('lifecyle', t => {
     t.equal(typeof recompose.lifecycle, 'function', 'lifecycle is a function');
 
     interface Props {
-      test: boolean;
+        test: boolean;
     }
 
     const TestCmp = (props: Props) => <div>Hello world</div>;
 
     const lifecycleSpec = {
-      commponentWillReceiveProps: (nextProps: Props, nextState: void) => console.log('componentWillReceiveProps'),
-      shouldComponentUpdate: (nextProps: Props, nextState: void) => true
+        commponentWillReceiveProps:
+        (nextProps: Props, nextState: void) => console.log('componentWillReceiveProps'),
+        shouldComponentUpdate: (nextProps: Props, nextState: void) => true
     };
 
     const CmpWithLifecyle = recompose.lifecycle<Props, void>(lifecycleSpec)(TestCmp);
@@ -219,14 +220,55 @@ test('shouldUpdate', t => {
     t.equal(typeof recompose.withState, 'function', 'shouldUpdate is a function');
 
     interface Props {
-      stale: boolean;
+        stale: boolean;
     }
 
-    const StaleOrFresh = (props: Props) => <div>{ props.stale ? 'Stale!' : 'Fresh!' }</div>;
+    const StaleOrFresh = (props: Props) => <div>{props.stale ? 'Stale!' : 'Fresh!'}</div>;
 
     const UpdateWhenStale = recompose.shouldUpdate((props: Props) => props.stale)(StaleOrFresh);
 
     <UpdateWhenStale stale />;
 
+    t.end();
+});
+
+test('renameProp', t => {
+    t.equal(typeof recompose.renameProp, 'function', 'renameProp is a function');
+
+    interface FooProps {
+        foo: string;
+    }
+    interface BarProps {
+        bar: string;
+    }
+    const CmpWithBar = (props: BarProps) => <div> {props.bar} </div>;
+
+    const FooToBar = recompose
+        .renameProp('foo', 'bar')(CmpWithBar) as React.ComponentClass<FooProps>;
+    // in this case we can't do much
+    // So if wee need precise types then we have to specify it explicitly
+    <FooToBar foo='some value' />;
+    t.end();
+});
+
+
+test('renameProps', t => {
+    t.equal(typeof recompose.renameProps, 'function', 'renameProps is a function');
+
+    interface OldProps {
+        foo: string;
+        bar: string;
+    }
+    interface NewProps {
+        newFoo: string;
+        newBar: string;
+    }
+    const CmpWithNewProps = (props: NewProps) => <div> {props.newBar} {props.newFoo} </div>;
+
+    const OldToNewProps = recompose
+        .renameProp('foo', 'bar')(CmpWithNewProps) as React.ComponentClass<OldProps>;
+    // in this case we can't do much
+    // So if wee need precise types then we have to specify it explicitly
+    <OldToNewProps foo='some foo' bar='some bar' />;
     t.end();
 });
